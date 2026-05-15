@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import oauth2Client from "../config/googleOAuth.js";
+import oauth2Client from "../config/googleOauth.js";
 import GoogleToken from "../models/googleToken.model.js";
 
 const createTransporter = async (email) => {
