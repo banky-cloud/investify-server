@@ -1,4 +1,4 @@
-import oauth2Client from "../config/googleOAuth.js";
+import oauth2Client from "../config/googleOauth.js";
 import GoogleToken from "../models/googleToken.model.js";
 import { google } from "googleapis";
 export const googleLogin = async (req, res) => {
