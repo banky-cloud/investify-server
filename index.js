@@ -12,7 +12,6 @@ import { google } from  "googleapis";
 import tokenModel from "./models/tokensModel.js"
 import { welcomeTemplate } from "./emailTemplates.js"
 import googleAuthRoutes from "./routes/googleAuth.routes.js";
-import { sendTestEmail } from "./controllers/email.controller.js"
 import plansModel from "./models/plansModel.js"
 import walletsModel from "./models/walletsModel.js"
 
@@ -34,8 +33,6 @@ server.use(express.json())
 server.use("/users",userRouter)
 server.use("/transactions",transactionRouter)
 server.use("/auth", googleAuthRoutes);
-
-server.get("/email", sendTestEmail)
 
 server.get("/",async(req,res, next)=>{
 // get all investments

@@ -3,10 +3,11 @@ import jwt from "jsonwebtoken"
 import generateCode from "./generateCode.js";
 import transactionModel from "../../models/transactionModel.js";
 import welcomeEmailTemplate from "../../templates/welcomeTemplate.js";
-import sendEmail from "../../services/sendEmail.js";
+// import sendEmail from "../../services/sendEmail.js";
 import forgotPasswordTemplate from "../../templates/resetPasswordTemplate.js";
 import notificationTemplate from "../../templates/notificationTemplate.js";
 import plansModel from "../../models/plansModel.js";
+import  sendMail  from "../../services/sendMail.js";
 import walletsModel from "../../models/walletsModel.js";
 
 
@@ -30,7 +31,7 @@ export const register= async(req,res,next)=>{
             }
            const  newUser= await userModel.create(userObject)
            const html=welcomeEmailTemplate(newUser._id, newUser.firstName)
-           sendEmail({
+           sendMail({
             to:newUser.email,
             subject:"Welcome to Investify -- verify your email",
             html
@@ -131,7 +132,7 @@ export  const forgotPassword=async(req,res,next)=>{
         }
         else{
            const  html= forgotPasswordTemplate(thisUser.firstName, thisUser._id,process.env.domain)
-            await sendEmail({to:thisUser.email, subject:"Password Reset Instructions",html})
+            await sendMail({to:thisUser.email, subject:"Password Reset Instructions",html})
 
             return res.status(200).json({success:true, result:"Instructions were sent to your email"})
         }
@@ -163,7 +164,7 @@ export const sendNotifications= async(req, res, next)=>{
         }
         const html= notificationTemplate({name:thisUser.firstName,subject,message}).html;
         console.log({html})
-         await sendEmail({to:thisUser.email,html, subject})
+         await sendMail({to:thisUser.email,html, subject})
         return res.status(200).json({success:true, result:"Notification sent Successfully"})
     }
     catch(err){
